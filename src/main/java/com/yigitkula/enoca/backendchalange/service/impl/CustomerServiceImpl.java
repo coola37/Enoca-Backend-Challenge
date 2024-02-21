@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Order> findOrdersByCustomerId(Long customerId) {
+    public List<Order> getAllOrdersForCustomer(Long customerId) {
         return null;
     }
 }

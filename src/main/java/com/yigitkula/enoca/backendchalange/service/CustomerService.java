@@ -10,5 +10,5 @@ public interface CustomerService {
 
     public Customer addCustomer(String name, String email);
     public Customer getCustomer(Long id);
-    public List<Order> findOrdersByCustomerId(Long customerId);
+    public List<Order> getAllOrdersForCustomer(Long customerId);
 }
