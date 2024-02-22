@@ -10,6 +10,6 @@ public interface CustomerService {
 
     public Customer addCustomer(Customer customer);
     public Customer getCustomer(Long id);
-    public Customer updateCustomer(Long id, Customer customer);
     public List<Order> getAllOrdersForCustomer(Long customerId);
+
 }

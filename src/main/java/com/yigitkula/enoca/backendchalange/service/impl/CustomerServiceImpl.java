@@ -1,43 +1,50 @@
 package com.yigitkula.enoca.backendchalange.service.impl;
 
-import com.yigitkula.enoca.backendchalange.entity.Customer;
-import com.yigitkula.enoca.backendchalange.entity.Order;
+import com.yigitkula.enoca.backendchalange.entity.*;
+import com.yigitkula.enoca.backendchalange.repository.CartRepository;
 import com.yigitkula.enoca.backendchalange.repository.CustomerRepository;
+import com.yigitkula.enoca.backendchalange.repository.OrderRepository;
+import com.yigitkula.enoca.backendchalange.service.CartService;
 import com.yigitkula.enoca.backendchalange.service.CustomerService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
-    CustomerRepository repo;
+    CustomerRepository customerRepository;
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    CartService cartService;
+    @Autowired
+    CartRepository cartRepository;
 
     @Override
     public Customer addCustomer(Customer customer) {
-        return repo.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
     public Customer getCustomer(Long id) {
-        return repo.findById(id).orElseThrow();
-    }
-
-    @Override
-    public Customer updateCustomer(Long id, Customer customer) {
-        Customer oldCustomer = repo.findById(id).orElseThrow();
-        //oldCustomer.setCart();
-        return null;
+        return customerRepository.findById(id).orElseThrow();
     }
 
     @Override
     public List<Order> getAllOrdersForCustomer(Long customerId) {
-
-        return null;
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        return customer.getOrders();
     }
+
+
 }
+
+
+
+

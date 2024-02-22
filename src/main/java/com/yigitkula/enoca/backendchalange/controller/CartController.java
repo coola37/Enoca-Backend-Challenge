@@ -47,7 +47,7 @@ public class CartController {
     }
 
     @PutMapping("/add-product-tocart/{productId}/{cartId}/{quantity}")
-    CartItem addProductToCart(@PathVariable Long productId, @PathVariable Long cartId, @PathVariable int quantity){
+    String addProductToCart(@PathVariable Long productId, @PathVariable Long cartId, @PathVariable int quantity){
         Product product = productService.getProduct(productId);
         return cartService.addProductToCart(cartId, product, quantity);
     }

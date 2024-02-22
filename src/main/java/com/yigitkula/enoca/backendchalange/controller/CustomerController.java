@@ -3,8 +3,10 @@ package com.yigitkula.enoca.backendchalange.controller;
 import com.yigitkula.enoca.backendchalange.entity.Cart;
 import com.yigitkula.enoca.backendchalange.entity.CartItem;
 import com.yigitkula.enoca.backendchalange.entity.Customer;
+import com.yigitkula.enoca.backendchalange.entity.Order;
 import com.yigitkula.enoca.backendchalange.service.CartService;
 import com.yigitkula.enoca.backendchalange.service.CustomerService;
+import com.yigitkula.enoca.backendchalange.service.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ public class CustomerController {
     CartService cartService;
     @Autowired
     CustomerService customerService;
+    @Autowired
+    OrderService orderService;
     @PostMapping("/create")
     Customer addCustomer(@RequestBody Customer customer){
         Cart cart = new Cart();
@@ -40,8 +44,21 @@ public class CustomerController {
     Customer getCustomer(@PathVariable Long customerId){
         return customerService.getCustomer(customerId);
     }
-   /* @PutMapping("/{customerId}")
-    Customer updateCustomer(@PathVariable Long customerId){
-        customerService.updateCustomer()
-    }*/
+
+    @PutMapping("/place-order/{customerId}")
+    Customer placeOrder(@PathVariable Long customerId){
+        Customer customer = customerService.getCustomer(customerId);
+        orderService.placeOrder(customerId);
+        return customer;
+    }
+
+    @GetMapping("/get-all-orders-for-customer/{customerId}")
+    List<Order> getAllOrdersForCustomer(@PathVariable Long customerId){
+        return customerService.getAllOrdersForCustomer(customerId);
+    }
+
+    @GetMapping("/get-order-for-code/{orderId}")
+    Order getOrderForCode(@PathVariable Long orderId){
+        return orderService.getOrderForCode(orderId);
+    }
 }

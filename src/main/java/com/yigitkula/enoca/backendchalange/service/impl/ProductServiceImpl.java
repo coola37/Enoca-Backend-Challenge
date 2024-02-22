@@ -13,13 +13,11 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository repo;
     @Override
     public Product getProduct(Long id) {
-
         return repo.findById(id).orElseThrow();
     }
 
     @Override
     public Product createProduct(Product product) {
-
         return repo.save(product);
     }
 

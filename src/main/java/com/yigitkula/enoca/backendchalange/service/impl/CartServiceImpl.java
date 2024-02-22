@@ -7,7 +7,9 @@ import com.yigitkula.enoca.backendchalange.repository.CartItemRepository;
 import com.yigitkula.enoca.backendchalange.repository.CartRepository;
 import com.yigitkula.enoca.backendchalange.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -26,7 +28,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart getCart(Long id) {
-
         return cartRepository.findById(id).orElseThrow();
     }
 
@@ -45,18 +46,22 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartItem addProductToCart(Long cartId, Product product, int quantity) {
+    public String addProductToCart(Long cartId, Product product, int quantity) {
         Cart cart = cartRepository.findById(cartId).orElseThrow();
 
         CartItem cartItem = new CartItem();
-        cartItem.setProduct(product);
-        cartItem.setQuantity(quantity);
+        if(product.getInStock() > 0 && quantity <= product.getInStock()){
+            cartItem.setProduct(product);
+            cartItem.setQuantity(quantity);
 
-        List<CartItem> newCartItems = cart.getCartItems();
-        newCartItems.add(cartItem);
-        cart.setCartItems(newCartItems);
-        cartRepository.save(cart);
-        return cartItem;
+            List<CartItem> newCartItems = cart.getCartItems();
+            newCartItems.add(cartItem);
+            cart.setCartItems(newCartItems);
+            cartRepository.save(cart);
+            return "Product added to cart";
+        }else{
+            return "There is not enough product stock";
+        }
     }
     @Override
     public CartItem cartItemChangeQuantity(Long cartId,int cartListIndex, int changeQuantity) {
