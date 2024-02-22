@@ -3,6 +3,7 @@ package com.yigitkula.enoca.backendchalange.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,5 +14,6 @@ public class Customer extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;
     @OneToMany(mappedBy = "customer")
+    @Column(name = "product_id")
     private List<Order> orders;
 }

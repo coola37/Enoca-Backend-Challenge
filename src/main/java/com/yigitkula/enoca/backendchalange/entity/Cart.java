@@ -1,16 +1,16 @@
 package com.yigitkula.enoca.backendchalange.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "carts")
 @Data
 public class Cart extends BaseEntity {
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
 }

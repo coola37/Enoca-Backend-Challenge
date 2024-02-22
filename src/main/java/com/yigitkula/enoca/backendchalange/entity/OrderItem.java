@@ -10,5 +10,5 @@ public class OrderItem extends BaseEntity {
     @ManyToOne
     private Product product;
     private int quantity;
-    private double price;
+    private double price = product.getPrice() * quantity;
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
-@Entity
+@Entity(name = "cart_items")
 @Data
 public class CartItem extends BaseEntity {
     @ManyToOne
