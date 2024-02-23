@@ -2,9 +2,11 @@ package com.yigitkula.enoca.backendchalange.service.impl;
 
 import com.yigitkula.enoca.backendchalange.entity.Cart;
 import com.yigitkula.enoca.backendchalange.entity.CartItem;
+import com.yigitkula.enoca.backendchalange.entity.Customer;
 import com.yigitkula.enoca.backendchalange.entity.Product;
 import com.yigitkula.enoca.backendchalange.repository.CartItemRepository;
 import com.yigitkula.enoca.backendchalange.repository.CartRepository;
+import com.yigitkula.enoca.backendchalange.repository.CustomerRepository;
 import com.yigitkula.enoca.backendchalange.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,8 @@ public class CartServiceImpl implements CartService {
     CartRepository cartRepository;
     @Autowired
     CartItemRepository cartItemRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
     @Override
     public Cart createCart(Cart cart) {
@@ -26,27 +30,31 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart getCart(Long id) {
-        return cartRepository.findById(id).orElseThrow();
+    public Cart getCart(Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        return customer.getCart();
     }
 
     @Override
-    public Cart updateCart(Long cartId, Cart cart) {
-        Cart oldCart = cartRepository.findById(cartId).orElseThrow();
+    public Cart updateCart(Long customerId, Cart cart) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        Cart oldCart = customer.getCart();
         oldCart.setCartItems(cart.getCartItems());
         return cartRepository.save(oldCart);
     }
 
     @Override
-    public void emptyCart(Long id) {
-        Cart cart = cartRepository.findById(id).orElseThrow();
+    public void emptyCart(Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        Cart cart = customer.getCart();
         cart.setCartItems(null);
         cartRepository.save(cart);
     }
 
     @Override
-    public String addProductToCart(Long cartId, Product product, int quantity) {
-        Cart cart = cartRepository.findById(cartId).orElseThrow();
+    public String addProductToCart(Long customerId, Product product, int quantity) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        Cart cart = customer.getCart();
 
         CartItem cartItem = new CartItem();
         if(product.getInStock() > 0 && quantity <= product.getInStock()){
@@ -63,8 +71,9 @@ public class CartServiceImpl implements CartService {
         }
     }
     @Override
-    public CartItem cartItemChangeQuantity(Long cartId,int cartListIndex, int changeQuantity) {
-        Cart cart = cartRepository.findById(cartId).orElseThrow();
+    public CartItem cartItemChangeQuantity(Long customerId, int cartListIndex, int changeQuantity) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        Cart cart = customer.getCart();
         List<CartItem> items = cart.getCartItems();
         CartItem item = items.get(cartListIndex);
         item.setQuantity(item.getQuantity() + changeQuantity);
@@ -75,8 +84,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeProductFromCart(Long cartId, Long cartItemId) {
-        Cart cart = cartRepository.findById(cartId).orElseThrow();
+    public void removeProductFromCart(Long customerId, Long cartItemId) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        Cart cart = customer.getCart();
         List<CartItem> itemList = cart.getCartItems();
         CartItem item = cartItemRepository.findById(cartItemId).orElseThrow();
         itemList.remove(item);

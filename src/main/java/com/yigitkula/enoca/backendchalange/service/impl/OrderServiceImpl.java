@@ -23,7 +23,6 @@ public class OrderServiceImpl implements OrderService {
     ProductRepository productRepository;
     @Override
     public Order placeOrder(Long customerId) {
-
         Customer customer = customerRepository.findById(customerId).orElseThrow();
         Order order = cartConvertToOrder(customer.getCart());
         order.setCustomer(customer);

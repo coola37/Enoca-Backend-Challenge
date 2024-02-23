@@ -19,9 +19,9 @@ public class CartController {
     @Autowired
     CartService cartService;
 
-    @GetMapping("/get/{cartId}")
-    ResultResponse<Cart> getCart(@PathVariable Long cartId){
-        Cart cart = cartService.getCart(cartId);
+    @GetMapping("/get/{customerId}")
+    ResultResponse<Cart> getCart(@PathVariable Long customerId){
+        Cart cart = cartService.getCart(customerId);
         Double totalPrice = 0.0;
         List<CartItem> list = cart.getCartItems();
         for(CartItem item : list){
@@ -34,33 +34,33 @@ public class CartController {
                 .build();
     }
 
-    @PutMapping("/update/{cartId}")
-    Cart updateCart(@PathVariable Long cartId, @RequestBody Cart cart){
-        return cartService.updateCart(cartId, cart);
+    @PutMapping("/update/{customerId}")
+    Cart updateCart(@PathVariable Long customerId, @RequestBody Cart cart){
+        return cartService.updateCart(customerId, cart);
     }
 
-    @PutMapping("/empty-cart/{cartId}")
-    String emptyTheCart(@PathVariable Long cartId){
-        cartService.emptyCart(cartId);
+    @PutMapping("/empty-cart/{customerId}")
+    String emptyTheCart(@PathVariable Long customerId){
+        cartService.emptyCart(customerId);
         return "Card emptied";
     }
 
-    @PutMapping("/add-product-tocart/{productId}/{cartId}/{quantity}")
-    String addProductToCart(@PathVariable Long productId, @PathVariable Long cartId, @PathVariable int quantity){
+    @PutMapping("/add-product-tocart/{productId}/{customerId}/{quantity}")
+    String addProductToCart(@PathVariable Long productId, @PathVariable Long customerId, @PathVariable int quantity){
         Product product = productService.getProduct(productId);
-        return cartService.addProductToCart(cartId, product, quantity);
+        return cartService.addProductToCart(customerId, product, quantity);
     }
 
-    @PutMapping("/remove-product-from-cart/{cartId}/{cartItemId}")
-    String removeProductFromCart(@PathVariable Long cartId, @PathVariable Long cartItemId){
-        cartService.removeProductFromCart(cartId, cartItemId);
+    @PutMapping("/remove-product-from-cart/{customerId}/{cartItemId}")
+    String removeProductFromCart(@PathVariable Long customerId, @PathVariable Long cartItemId){
+        cartService.removeProductFromCart(customerId, cartItemId);
         return "Product removed from cart";
     }
 
-    @PutMapping("/change-item-quantity/{cartId}/{cartListIndex}/{changeQuantity}")
-    String changeItemQuantity(@PathVariable Long cartId, @PathVariable int cartListIndex,
+    @PutMapping("/change-item-quantity/{customerId}/{cartListIndex}/{changeQuantity}")
+    String changeItemQuantity(@PathVariable Long customerId, @PathVariable int cartListIndex,
                               @PathVariable int changeQuantity){
-        cartService.cartItemChangeQuantity(cartId, cartListIndex, changeQuantity);
+        cartService.cartItemChangeQuantity(customerId, cartListIndex, changeQuantity);
         return "Changed item quantity";
     }
 }
