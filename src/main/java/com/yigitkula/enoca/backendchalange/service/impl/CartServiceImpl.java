@@ -15,7 +15,6 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-
     @Autowired
     CartRepository cartRepository;
     @Autowired
@@ -75,7 +74,6 @@ public class CartServiceImpl implements CartService {
         return item;
     }
 
-
     @Override
     public void removeProductFromCart(Long cartId, Long cartItemId) {
         Cart cart = cartRepository.findById(cartId).orElseThrow();
@@ -88,6 +86,4 @@ public class CartServiceImpl implements CartService {
         System.out.println(cart.getCartItems());
         System.err.println(item);
     }
-
-
 }

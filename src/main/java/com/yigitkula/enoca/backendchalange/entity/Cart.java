@@ -12,7 +12,6 @@ import java.util.List;
 @Entity(name = "carts")
 @Data
 public class Cart extends BaseEntity {
-
     @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<CartItem> cartItems;

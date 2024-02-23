@@ -15,7 +15,6 @@ import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
     @Autowired
     CustomerRepository customerRepository;
     @Autowired
@@ -41,10 +40,4 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(customerId).orElseThrow();
         return customer.getOrders();
     }
-
-
 }
-
-
-
-

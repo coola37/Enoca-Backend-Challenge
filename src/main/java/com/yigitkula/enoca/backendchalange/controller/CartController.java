@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/cart")
 public class CartController {
-
     @Autowired
     ProductService productService;
     @Autowired
@@ -57,9 +56,10 @@ public class CartController {
         cartService.removeProductFromCart(cartId, cartItemId);
         return "Product removed from cart";
     }
-//Long cartId,int cartListIndex, int changeQuantity)
+
     @PutMapping("/change-item-quantity/{cartId}/{cartListIndex}/{changeQuantity}")
-    String changeItemQuantity(@PathVariable Long cartId, @PathVariable int cartListIndex, @PathVariable int changeQuantity){
+    String changeItemQuantity(@PathVariable Long cartId, @PathVariable int cartListIndex,
+                              @PathVariable int changeQuantity){
         cartService.cartItemChangeQuantity(cartId, cartListIndex, changeQuantity);
         return "Changed item quantity";
     }

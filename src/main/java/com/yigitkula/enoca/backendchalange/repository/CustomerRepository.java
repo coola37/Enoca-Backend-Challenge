@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    //public List<Order> getAllOrdersForCustomer(Long customerId);
 }

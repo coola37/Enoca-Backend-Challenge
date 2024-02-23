@@ -6,9 +6,7 @@ import lombok.*;
 
 @Entity
 @AllArgsConstructor
-@Setter
 @Data
-@Getter
 @NoArgsConstructor
 public class Product extends BaseEntity{
     private String name;
