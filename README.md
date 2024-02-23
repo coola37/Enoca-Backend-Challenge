@@ -50,12 +50,12 @@
 
 # Controller
 ## CartController
-<p>/get/{cartId} (GET): Belirli bir alışveriş sepetini almak için kullanılır. Sepetteki ürünlerin toplam fiyatını hesaplar ve sonuçları döndürür.</p>
-<p>/update/{cartId} (PUT): Belirli bir alışveriş sepetini güncellemek için kullanılır. Sepetin içeriğini ve toplam fiyatını günceller.</p>
-<p>/empty-cart/{cartId} (PUT): Belirli bir alışveriş sepetini boşaltmak için kullanılır.</p>
-<p>/add-product-tocart/{productId}/{cartId}/{quantity} (PUT): Belirli bir alışveriş sepetine belirli bir ürünü ve miktarını eklemek için kullanılır.</p>
-<p>/remove-product-from-cart/{cartId}/{cartItemId} (PUT): Belirli bir alışveriş sepetinden belirli bir ürünü kaldırmak için kullanılır.</p>
-<p>/change-item-quantity/{cartId}/{cartListIndex}/{changeQuantity} (PUT): Belirli bir alışveriş sepetindeki bir ürünün miktarını değiştirmek için kullanılır.</p>
+<p>/get/{customerId} (GET): Belirli bir alışveriş sepetini almak için kullanılır. Sepetteki ürünlerin toplam fiyatını hesaplar ve sonuçları döndürür.</p>
+<p>/update/{customerId} (PUT): Belirli bir alışveriş sepetini güncellemek için kullanılır. Sepetin içeriğini ve toplam fiyatını günceller.</p>
+<p>/empty-cart/{customerId} (PUT): Belirli bir alışveriş sepetini boşaltmak için kullanılır.</p>
+<p>/add-product-tocart/{productId}/{customerId}/{quantity} (PUT): Belirli bir alışveriş sepetine belirli bir ürünü ve miktarını eklemek için kullanılır.</p>
+<p>/remove-product-from-cart/{customerId}/{cartItemId} (PUT): Belirli bir alışveriş sepetinden belirli bir ürünü kaldırmak için kullanılır.</p>
+<p>/change-item-quantity/{customerId}/{cartListIndex}/{changeQuantity} (PUT): Belirli bir alışveriş sepetindeki bir ürünün miktarını değiştirmek için kullanılır.</p>
 
 ## CustomerController
 <p>/create (POST): Yeni bir müşteri oluşturur ve müşteriye ait bir alışveriş sepeti oluşturur.</p>
